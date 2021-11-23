@@ -59,6 +59,9 @@ fi
 
 cd ${FLARE_ROOT}
 git checkout master
+git status
+
+echo "GOPATH: ${GOPATH}"
 # compile.sh options: local | songbird
 ./compile.sh ${1} 
 ./cmd/${1}.sh
