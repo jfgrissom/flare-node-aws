@@ -3,6 +3,8 @@
 # Handle build dependencies.
 apt install git -y
 snap install go --classic
+apt install curl
+curl -sL https://deb.nodesource.com/setup_10.x | -E bash -
 
 # Define all paths and other environment variables that are needed.
 export REPO_ROOT=${HOME}/go
