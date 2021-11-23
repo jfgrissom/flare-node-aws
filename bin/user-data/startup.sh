@@ -10,7 +10,7 @@ which node
 if [ ${?} -eq 1 ]; then
   curl -sL https://deb.nodesource.com/setup_10.x | bash -
 fi
-apt install node -y
+apt install nodejs -y
 
 # Define all paths and other environment variables that are needed.
 export REPO_ROOT=${HOME}/go
