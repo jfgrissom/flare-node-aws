@@ -1,17 +1,20 @@
 #!/bin/sh
 
 # Handle build dependencies.
-apt install git -y
+apt -y install git curl
 snap install go --classic
-apt install curl -y
 
 # Download the node installation script only if node is not installed.
 which node
 if [ ${?} -eq 1 ]; then
   curl -sL https://deb.nodesource.com/setup_10.x | bash -
 fi
-apt install nodejs -y
+apt -y install nodejs
 npm install --global yarn
+
+# Complete installation of dependencies
+apt update
+apt -y install gcc g++ curl jq
 
 # Define all paths and other environment variables that are needed.
 export REPO_ROOT=${HOME}/go
