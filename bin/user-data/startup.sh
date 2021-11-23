@@ -19,4 +19,4 @@ else
 fi
 
 # Install go environment.
-snap install go
+snap install go --classic
