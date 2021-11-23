@@ -3,7 +3,7 @@
 
 # Handle build dependencies.
 apt -y install git curl
-snap install go --classic
+snap install go --channel=1.15/stable --classic
 
 # Download the node installation script only if node is not installed.
 which node
