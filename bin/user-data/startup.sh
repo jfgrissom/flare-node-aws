@@ -1,22 +1,24 @@
 #!/bin/sh
 
-# Handle dependencies.
+# Handle build dependencies.
 apt install git -y
+snap install go --classic
 
-# Create a directory to hold repos.
-export REPO_ROOT=${HOME}/Repos
-mkdir -p ${REPO_ROOT}
-cd ${REPO_ROOT}
-
-# Clone/Pull repo from gitlab.
-export FLARE_ROOT=${REPO_ROOT}/flare
+# Define all paths and other environment variables that are needed.
+export REPO_ROOT=${HOME}/go
+export FLARENETWORK_ROOT=${REPO_ROOT}/src/gitlab.com/flarenetwork
+export FLARE_ROOT=${FLARENETWORK_ROOT}/flare
 export REPO_URL=https://gitlab.com/flarenetwork/flare.git
+export GOPATH=$(go env GOPATH)
+
+# Create all directories the repo depends on.
+mkdir -p ${FLARENETWORK_ROOT}
+
+# Clone/Pull repo from gitlab which creates ${FLARE_ROOT}.
+cd ${FLARENETWORK_ROOT}
 if [ ! -d ${FLARE_ROOT} ]; then
     git clone --no-checkout $URL ${FLARE_ROOT}
 else
     cd ${FLARE_ROOT}
     git pull $URL
 fi
-
-# Install go environment.
-snap install go --classic

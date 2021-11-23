@@ -1,8 +1,8 @@
 # Purpose of startup.sh
 
-This script should be run the first time your flare node is started.
+This script should be run the first time your flare node is started. It bootstraps the system and sets up a flare node.
 
-It bootstraps the system.
+It's idempotent so you can run it over and over (as root) without fear of causing damage.
 
 ## Dependencies
 
