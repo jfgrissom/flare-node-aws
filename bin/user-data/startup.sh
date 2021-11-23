@@ -22,10 +22,12 @@ export REPO_ROOT=${HOME}/go
 export FLARENETWORK_ROOT=${REPO_ROOT}/src/gitlab.com/flarenetwork
 export FLARE_ROOT=${FLARENETWORK_ROOT}/flare
 export REPO_URL=https://gitlab.com/flarenetwork/flare.git
+export AVALANCHE_ROOT=${REPO_ROOT}/src/github.com/ava-labs/avalanchego
 export GOPATH=$(go env GOPATH)
 
 # Create all directories the repo depends on.
 mkdir -p ${FLARENETWORK_ROOT}
+mkdir -p ${AVALANCHE_ROOT}
 
 # Clone/Pull repo from gitlab which creates ${FLARE_ROOT}.
 cd ${FLARENETWORK_ROOT}
