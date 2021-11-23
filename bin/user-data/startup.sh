@@ -34,7 +34,6 @@ export GOPATH=$(go env GOPATH)
 
 echo "Creating Directories:"
 mkdir -p ${FLARENETWORK_ROOT}
-mkdir -p ${AVALANCHE_ROOT}
 
 echo "Cloning Repo:"
 cd ${FLARENETWORK_ROOT}
