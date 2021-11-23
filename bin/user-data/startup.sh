@@ -1,6 +1,9 @@
 #!/bin/sh
 # This scripts accepts 1 argument (local | songbird).
 
+echo "export GOPATH=${HOME}/go" >> ${HOME}/.profile
+source ${HOME}/.profile
+
 # Handle build dependencies.
 apt -y install git curl
 
@@ -63,5 +66,5 @@ git status
 
 echo "GOPATH: ${GOPATH}"
 # compile.sh options: local | songbird
-./compile.sh ${1} 
-./cmd/${1}.sh
+bash compile.sh ${1} 
+bash cmd/${1}.sh
