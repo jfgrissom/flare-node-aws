@@ -6,7 +6,7 @@ apt -y install git curl
 
 # Remove versions of go if they are not the version we need.
 go version | grep 1.15
-if [ ${?} -eq 1]; then
+if [ ${?} -eq 1 ]; then
 apt remove go
 apt remove golang-go
 snap remove go
