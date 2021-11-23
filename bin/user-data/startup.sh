@@ -30,12 +30,11 @@ mkdir -p ${FLARENETWORK_ROOT}
 cd ${FLARENETWORK_ROOT}
 if [ ! -d ${FLARE_ROOT} ]; then
     git clone --no-checkout ${REPO_URL}
-    git checkout master
 else
     cd ${FLARE_ROOT}
     git pull ${REPO_URL}
-    git checkout master
 fi
 
 cd ${FLARE_ROOT}
+git checkout master
 ./compile.sh $1 # compile.sh options: local | songbird
