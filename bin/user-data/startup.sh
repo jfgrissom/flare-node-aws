@@ -1,4 +1,5 @@
 #!/bin/sh
+# This scripts accepts 1 argument (local | songbird).
 
 # Handle build dependencies.
 apt -y install git curl
@@ -37,4 +38,6 @@ fi
 
 cd ${FLARE_ROOT}
 git checkout master
-./compile.sh $1 # compile.sh options: local | songbird
+# compile.sh options: local | songbird
+./compile.sh ${1} 
+./cmd/${1}.sh
