@@ -32,5 +32,8 @@ if [ ! -d ${FLARE_ROOT} ]; then
     git clone --no-checkout ${REPO_URL}
 else
     cd ${FLARE_ROOT}
-    git pull $URL
+    git pull ${REPO_URL}
 fi
+
+cd ${FLARE_ROOT}
+# ./compile.sh $1
