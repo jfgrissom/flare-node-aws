@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Handle dependencies.
 apt install git -y
 
