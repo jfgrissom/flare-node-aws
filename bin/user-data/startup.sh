@@ -3,6 +3,14 @@
 
 # Handle build dependencies.
 apt -y install git curl
+
+# Remove versions of go if they are not the version we need.
+go version | grep 1.15
+if [ ${?} -eq 1]; then
+apt remove go
+apt remove golang-go
+snap remove go
+fi
 snap install go --channel=1.15/stable --classic
 
 # Download the node installation script only if node is not installed.
