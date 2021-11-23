@@ -1,10 +1,10 @@
 #!/bin/sh
 # This scripts accepts 1 argument (local | songbird).
 
-# Handle build dependencies.
+echo "Installing Flare Node Dependencies:"
 apt -y install git curl
 
-# Remove versions of go if they are not the version we need.
+echo "Removing Other Versions of Go:"
 go version | grep 1.15
 if [ ${?} -eq 1 ]; then
 apt remove go
@@ -13,7 +13,7 @@ snap remove go
 fi
 snap install go --channel=1.15/stable --classic
 
-# Download the node installation script only if node is not installed.
+echo "Download and Installing NodeJS:"
 which node
 if [ ${?} -eq 1 ]; then
   curl -sL https://deb.nodesource.com/setup_10.x | bash -
@@ -21,25 +21,22 @@ fi
 apt -y install nodejs
 npm install --global yarn
 
-# Complete installation of dependencies
+echo "Complete Installation of Dependencies:"
 apt update
 apt -y install gcc g++ curl jq
 
-# Define all paths and other environment variables that are needed.
+echo "Defineing Environment Variables:"
 export REPO_ROOT=${HOME}/go
 export FLARENETWORK_ROOT=${REPO_ROOT}/src/gitlab.com/flarenetwork
 export FLARE_ROOT=${FLARENETWORK_ROOT}/flare
 export FLARE_REPO_URL=https://gitlab.com/flarenetwork/flare.git
-export AVALABS_ROOT=${REPO_ROOT}/src/github.com/ava-labs
-export AVALANCHE_ROOT=${AVALABS_ROOT}/avalanchego
-export AVALANCHE_REPO_URL=https://github.com:ava-labs/avalanchego.git
-export GOPATH=${REPO_ROOT}
+export GOPATH=$(go env GOPATH)
 
-# Create all directories the repo depends on.
+echo "Creating Directories:"
 mkdir -p ${FLARENETWORK_ROOT}
 mkdir -p ${AVALANCHE_ROOT}
 
-# Clone/Pull repo from gitlab for ${FLARE_ROOT}.
+echo "Cloning Repo:"
 cd ${FLARENETWORK_ROOT}
 if [ ! -d ${FLARE_ROOT} ]; then
     git clone --no-checkout ${FLARE_REPO_URL}
@@ -48,20 +45,10 @@ else
     git pull ${FLARE_REPO_URL}
 fi
 
-# Clone/Pull repo from github for ${AVALANCHE_ROOT}
-cd ${AVALABS_ROOT}
-if [ ! -d ${AVALANCHE_ROOT} ]; then
-    git clone --no-checkout ${AVALANCHE_REPO_URL}
-else
-    cd ${AVALANCHE_ROOT}
-    git pull ${AVALANCHE_REPO_URL}
-fi
-
+echo "Checking Out Master:"
 cd ${FLARE_ROOT}
 git checkout master
-git status
 
-echo "GOPATH: ${GOPATH}"
 # compile.sh options: local | songbird
 bash compile.sh ${1} 
 bash cmd/${1}.sh
