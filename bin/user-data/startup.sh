@@ -2,7 +2,7 @@
 apt install git -y
 
 # Create local directories.
-mkdir ${HOME}/Repos/
+mkdir -p ${HOME}/Repos/
 cd ${HOME}/Repos
 
 # Pull repo from gitlab.
