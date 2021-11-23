@@ -21,8 +21,10 @@ fi
 apt -y install nodejs
 npm install --global yarn
 
-echo "Complete Installation of Dependencies:"
+echo "Updateing System:"
 apt update
+
+echo "Completing Installation of Dependencies:"
 apt -y install gcc g++ curl jq
 
 echo "Defineing Environment Variables:"
