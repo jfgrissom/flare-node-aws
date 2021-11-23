@@ -17,7 +17,7 @@ mkdir -p ${FLARENETWORK_ROOT}
 # Clone/Pull repo from gitlab which creates ${FLARE_ROOT}.
 cd ${FLARENETWORK_ROOT}
 if [ ! -d ${FLARE_ROOT} ]; then
-    git clone --no-checkout $URL ${FLARE_ROOT}
+    git clone --no-checkout ${REPO_URL}
 else
     cd ${FLARE_ROOT}
     git pull $URL
