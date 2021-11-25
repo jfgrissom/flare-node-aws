@@ -24,7 +24,7 @@ sudo snap install node --channel=10/stable --classic
 npm config set update-notifier false
 
 echo "🚨 Installing Yarn:"
-npm install --global yarn
+npm install --global --scripts-prepend-node-path yarn
 
 echo "🚨 Updating System:"
 apt update
