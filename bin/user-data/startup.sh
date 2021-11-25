@@ -21,9 +21,7 @@ if [ ${?} -eq 1 ]; then
 fi
 echo "Installing NodeJS:"
 sudo snap install node --channel=10/stable --classic
-
-echo "Updating Npm:"
-npm install -g npm
+npm config set update-notifier false
 
 echo "Installing Yarn:"
 npm install --global yarn
