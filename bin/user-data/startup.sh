@@ -25,7 +25,7 @@ sudo snap install node --channel=10/stable --classic
 echo "Installing Yarn:"
 npm install --global yarn
 
-echo "Updateing System:"
+echo "Updating System:"
 apt update
 
 echo "Completing Installation of Dependencies:"
