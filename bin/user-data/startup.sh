@@ -15,7 +15,7 @@ snap install go --channel=1.15/stable --classic
 
 echo "Installing NodeJS:"
 node --version | grep v10
-if [ ${?} -eq 1 ]; then; 
+if [ ${?} -eq 1 ]; then
     apt remove nodejs
 fi
 sudo snap install node --channel=10/stable --classic
