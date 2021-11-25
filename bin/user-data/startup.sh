@@ -4,20 +4,22 @@
 echo "Installing Dependencies:"
 apt -y install git curl
 
-echo "Installing Go:"
+echo "Checking for installed version of Go:"
 go version | grep 1.15
 if [ ${?} -eq 1 ]; then
     apt remove go
     apt remove golang-go
     snap remove go
 fi
+echo "Installing Go:"
 snap install go --channel=1.15/stable --classic
 
-echo "Installing NodeJS:"
+echo "Checking for installed version of NodeJS:"
 node --version | grep v10
 if [ ${?} -eq 1 ]; then
     apt remove nodejs
 fi
+echo "Installing NodeJS:"
 sudo snap install node --channel=10/stable --classic
 
 echo "Installing Yarn:"
