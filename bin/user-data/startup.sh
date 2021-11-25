@@ -22,9 +22,10 @@ fi
 echo "🚨 Installing NodeJS:"
 sudo snap install node --channel=10/stable --classic
 npm config set update-notifier false
+npm config set scripts-prepend-node-path true
 
 echo "🚨 Installing Yarn:"
-npm install --global --scripts-prepend-node-path yarn
+npm install --global yarn
 
 echo "🚨 Updating System:"
 apt update
