@@ -1,22 +1,26 @@
 #!/bin/sh
 # This scripts accepts 1 argument (local | songbird).
 
-echo "Installing Flare Node Dependencies:"
+echo "Installing Dependencies:"
 apt -y install git curl
 
-echo "Removing Other Versions of Go:"
+echo "Installing Go:"
 go version | grep 1.15
 if [ ${?} -eq 1 ]; then
-apt remove go
-apt remove golang-go
-snap remove go
+    apt remove go
+    apt remove golang-go
+    snap remove go
 fi
 snap install go --channel=1.15/stable --classic
 
-echo "Download and Installing NodeJS:"
-which node
-if [ ${?} -eq 1 ]; then curl -sL https://deb.nodesource.com/setup_10.x | bash -; fi
-apt -y install nodejs
+echo "Installing NodeJS:"
+node --version | grep v10
+if [ ${?} -eq 1 ]; then; 
+    apt remove nodejs
+fi
+sudo snap install node --channel=10/stable --classic
+
+echo "Installing Yarn:"
 npm install --global yarn
 
 echo "Updateing System:"
