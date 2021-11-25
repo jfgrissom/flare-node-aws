@@ -22,6 +22,9 @@ fi
 echo "Installing NodeJS:"
 sudo snap install node --channel=10/stable --classic
 
+echo "Updating Npm:"
+npm install -g npm
+
 echo "Installing Yarn:"
 npm install --global yarn
 
