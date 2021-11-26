@@ -20,6 +20,9 @@ export class FlareNodeStack extends cdk.Stack {
     const projectName = process.env.CDK_PROJECT_NAME
     if (!projectName) throw new Error('Please set CDK_PROJECT_NAME')
 
+    const region = process.env.CDK_REGION
+    if (!region) throw new Error('Please set CDK_REGION')
+
     // Create a new VPC
     const vpc = new ec2.Vpc(this, 'VPC', {
       natGateways: 0,
@@ -52,11 +55,13 @@ export class FlareNodeStack extends cdk.Stack {
       iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore')
     )
 
-    // Use Latest Amazon Linux Image - CPU Type ARM64
-    const ami = new ec2.AmazonLinuxImage({
-      generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
-      cpuType: ec2.AmazonLinuxCpuType.ARM_64
+    // Use an Ubuntu 20.03 Image - CPU Type X86_64
+    const ami = new ec2.GenericLinuxImage({
+      'us-east-1': 'ami-022d4249382309a48'
     })
+
+    // Create an elastic IP address.
+    const eip = new ec2.CfnEIP(this, 'ElasticIp')
 
     // Create the instance using the VPC, Security Group, AMI, and add the keyPair.
     const ec2Instance = new ec2.Instance(this, 'Instance', {
@@ -69,6 +74,12 @@ export class FlareNodeStack extends cdk.Stack {
       securityGroup: securityGroup,
       keyName: keyPairName,
       role: role
+    })
+
+    // Bind the IP address to the host.
+    new ec2.CfnEIPAssociation(this, 'Ec2Association', {
+      eip: eip.ref,
+      instanceId: ec2Instance.instanceId
     })
 
     // Create an asset that will be used as part of User Data to run on first load
