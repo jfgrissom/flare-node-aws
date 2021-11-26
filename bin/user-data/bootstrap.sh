@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash
 # This scripts accepts 1 argument (local | songbird).
 
 echo "- Installing Dependencies:"
