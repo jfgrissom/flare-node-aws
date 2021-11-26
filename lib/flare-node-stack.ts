@@ -42,10 +42,23 @@ export class FlareNodeStack extends cdk.Stack {
       description: 'Allow SSH (TCP port 22) in',
       allowAllOutbound: true
     })
+
     securityGroup.addIngressRule(
       ec2.Peer.ipv4(accessCidr),
       ec2.Port.tcp(22),
       'Allow SSH Access'
+    )
+
+    securityGroup.addIngressRule(
+      ec2.Peer.anyIpv4(),
+      ec2.Port.tcp(9650),
+      'Allow Flare Network Health Check'
+    )
+
+    securityGroup.addIngressRule(
+      ec2.Peer.anyIpv4(),
+      ec2.Port.tcp(9651),
+      'Allow Flare Network Peering'
     )
 
     const role = new iam.Role(this, 'ec2Role', {
