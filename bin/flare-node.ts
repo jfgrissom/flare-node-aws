@@ -23,8 +23,9 @@ new FlareNodeStack(app, 'FlareNodeStack', {
   // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
   /* Uncomment the next line if you know exactly what Account and Region you
    * want to deploy the stack to. */
-  env: { account: account, region: region }
+  env: { account: account, region: region },
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
+  terminationProtection: true
 })
 
 cdk.Tags.of(app).add('Project', projectName)

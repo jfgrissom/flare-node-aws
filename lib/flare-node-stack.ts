@@ -3,6 +3,7 @@ import * as ec2 from '@aws-cdk/aws-ec2'
 import * as iam from '@aws-cdk/aws-iam'
 import { Asset } from '@aws-cdk/aws-s3-assets'
 import * as path from 'path'
+import { Volume } from '@aws-cdk/aws-ec2'
 
 export class FlareNodeStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -60,11 +61,19 @@ export class FlareNodeStack extends cdk.Stack {
       'us-east-1': 'ami-022d4249382309a48'
     })
 
-    // Create an elastic IP address.
-    const eip = new ec2.CfnEIP(this, 'ElasticIp')
+    // Block device for storage.
+    const rootVolume: ec2.BlockDevice = {
+      // Use the root device name from
+      // aws ec2 describe-images --region us-east-1 --image-ids ami-022d4249382309a48
+      deviceName: '/dev/sda1',
+      // Override the default volume size of 8GB and GP2 type.
+      volume: ec2.BlockDeviceVolume.ebs(350, {
+        volumeType: ec2.EbsDeviceVolumeType.GP3
+      })
+    }
 
     // Create the instance using the VPC, Security Group, AMI, and add the keyPair.
-    const ec2Instance = new ec2.Instance(this, 'Instance', {
+    const ec2Instance = new ec2.Instance(this, 'Oracle01', {
       vpc,
       instanceType: ec2.InstanceType.of(
         ec2.InstanceClass.M5,
@@ -73,12 +82,13 @@ export class FlareNodeStack extends cdk.Stack {
       machineImage: ami,
       securityGroup: securityGroup,
       keyName: keyPairName,
-      role: role
+      role: role,
+      blockDevices: [rootVolume]
     })
 
-    // Bind the IP address to the host.
-    new ec2.CfnEIPAssociation(this, 'Ec2Association', {
-      eip: eip.ref,
+    // Create an elastic IP address and bind it to the host.
+    const eip = new ec2.CfnEIP(this, 'ElasticIp', {
+      domain: 'vpc',
       instanceId: ec2Instance.instanceId
     })
 
@@ -98,13 +108,13 @@ export class FlareNodeStack extends cdk.Stack {
     asset.grantRead(ec2Instance.role)
 
     // Create outputs for connecting
-    new cdk.CfnOutput(this, 'IP Address', {
+    new cdk.CfnOutput(this, 'Dynamic IP Address', {
       value: ec2Instance.instancePublicIp
     })
     new cdk.CfnOutput(this, 'Key Name', { value: keyPairName })
-    new cdk.CfnOutput(this, 'ssh command', {
+    new cdk.CfnOutput(this, 'SSH command', {
       value:
-        `ssh -i ${keyPairName}.pem -o IdentitiesOnly=yes ec2-user@` +
+        `ssh -i ${keyPairName}.pem -o IdentitiesOnly=yes ubuntu@` +
         ec2Instance.instancePublicIp
     })
   }
