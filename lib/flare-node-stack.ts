@@ -11,8 +11,8 @@ export class FlareNodeStack extends cdk.Stack {
 
     // This script is not meant to be run in a build pipeline.
     // It's meant to be run in by a trusted SA/SE.
-    const accessIp = process.env.SSH_ACCESS_IP
-    if (!accessIp) throw new Error('Please set SSH_ACCESS_IP')
+    const accessIp = process.env.CDK_SSH_ACCESS_IP
+    if (!accessIp) throw new Error('Please set CDK_SSH_ACCESS_IP')
     const accessCidr = `${accessIp}/32`
 
     const keyPairName = process.env.CDK_KEYPAIR_NAME
@@ -55,11 +55,14 @@ export class FlareNodeStack extends cdk.Stack {
       'Allow Flare Network Health Check'
     )
 
+    // According to Tim Rowley this isn't needed. Only 9650 is required.
+    /*
     securityGroup.addIngressRule(
       ec2.Peer.anyIpv4(),
       ec2.Port.tcp(9651),
       'Allow Flare Network Peering'
     )
+    */
 
     const role = new iam.Role(this, 'ec2Role', {
       assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com')
@@ -89,8 +92,8 @@ export class FlareNodeStack extends cdk.Stack {
     const ec2Instance = new ec2.Instance(this, 'Oracle01', {
       vpc,
       instanceType: ec2.InstanceType.of(
-        ec2.InstanceClass.M5,
-        ec2.InstanceSize.LARGE
+        ec2.InstanceClass.C5A,
+        ec2.InstanceSize.XLARGE2
       ),
       machineImage: ami,
       securityGroup: securityGroup,
@@ -115,8 +118,7 @@ export class FlareNodeStack extends cdk.Stack {
     })
 
     ec2Instance.userData.addExecuteFileCommand({
-      filePath: localPath,
-      arguments: '--verbose -y'
+      filePath: localPath
     })
     asset.grantRead(ec2Instance.role)
 
