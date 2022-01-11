@@ -32,6 +32,11 @@ export class FlareNodeStack extends cdk.Stack {
           cidrMask: 24,
           name: `${projectName}-subnet`,
           subnetType: ec2.SubnetType.PUBLIC
+        },
+        {
+          cidrMask: 24,
+          name: `${projectName}-subnet-private`,
+          subnetType: ec2.SubnetType.PRIVATE_WITH_NAT
         }
       ]
     })
