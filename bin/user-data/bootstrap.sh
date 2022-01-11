@@ -34,3 +34,6 @@ apt update
 
 echo "- Completing Installation of Dependencies:"
 apt -y install gcc g++ curl jq net-tools
+
+echo "- Creating Flare User:"
+useradd -m -s /bin/bash flare
