@@ -90,7 +90,7 @@ export class FlareNodeStack extends cdk.Stack {
       vpc,
       instanceType: ec2.InstanceType.of(
         ec2.InstanceClass.C5A,
-        ec2.InstanceSize.XLARGE2
+        ec2.InstanceSize.XLARGE4
       ),
       machineImage: ami,
       securityGroup: securityGroup,
