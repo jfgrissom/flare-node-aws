@@ -21,3 +21,9 @@ else
     cd ${FLARE_ROOT}
     git pull ${FLARE_REPO_URL}
 fi
+
+echo "- Compiling Songbird:"
+cd ${FLARE_ROOT}
+git checkout master
+
+./compile.sh songbird
