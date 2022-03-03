@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# After this script is run you'll need to create a user 
-# then run setup-user-env.sh
+# After this script is run you'll need to set the
+# flare user's password then run setup-user-env.sh
 
 GO_VERSION=1.16
 
