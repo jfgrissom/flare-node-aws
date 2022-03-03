@@ -2,7 +2,7 @@ echo "- Defining Environment Variables:"
 export REPO_ROOT=${HOME}/go
 export FLARENETWORK_ROOT=${REPO_ROOT}/src/gitlab.com/flarenetwork
 export FLARE_ROOT=${FLARENETWORK_ROOT}/flare
-export FLARE_REPO_URL=https://gitlab.com/flarenetwork/flare.git
+export FLARE_REPO_URL=https://github.com/flare-foundation/flare.git
 export GOPATH=$(go env GOPATH)
 
 echo "- Adding GOPATH to Root Profile:"
