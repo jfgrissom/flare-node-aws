@@ -5,6 +5,8 @@ export FLARE_ROOT=${FLARENETWORK_ROOT}/flare
 export FLARE_REPO_URL=https://github.com/flare-foundation/flare.git
 export GOPATH=$(go env GOPATH)
 
+mkdir go
+
 echo "- Adding GOPATH to Root Profile:"
 export PROFILE=${HOME}/.profile
 grep "GOPATH" ${HOME}/.profile
@@ -22,8 +24,8 @@ else
     git pull ${FLARE_REPO_URL}
 fi
 
-echo "- Compiling Songbird:"
-cd ${FLARE_ROOT}
-git checkout master
+# echo "- Compiling Songbird:"
+# cd ${FLARE_ROOT}
+# git checkout master
 
-./compile.sh songbird
+# ./compile.sh songbird
