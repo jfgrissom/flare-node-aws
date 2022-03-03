@@ -3,7 +3,7 @@
 # After this script is run you'll need to create a user 
 # then run setup-user-env.sh
 
-GO_VERSION=1.16.8
+GO_VERSION=1.16
 
 echo "- Installing Dependencies:"
 apt -y install git curl
