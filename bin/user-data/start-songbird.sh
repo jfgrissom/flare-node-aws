@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ${HOME}/repos/flare
+cd ${HOME}/Repos/flare
 
 ./build/flare --network-id=songbird \
   --http-host=${PUBLIC_IP} \
