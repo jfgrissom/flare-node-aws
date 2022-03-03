@@ -3,18 +3,20 @@
 # After this script is run you'll need to create a user 
 # then run setup-user-env.sh
 
+GO_VERSION=1.16.8
+
 echo "- Installing Dependencies:"
 apt -y install git curl
 
 echo "- Checking for installed version of Go:"
-go version | grep 1.15
+go version | grep ${GO_VERSION}
 if [ ${?} -eq 1 ]; then
     apt remove go
     apt remove golang-go
     snap remove go
 fi
 echo "- Installing Go:"
-snap install go --channel=1.15/stable --classic
+snap install go --channel=${GO_VERSION}/stable --classic
 
 echo "- Checking for installed version of NodeJS:"
 node --version | grep v10

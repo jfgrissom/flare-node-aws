@@ -79,7 +79,7 @@ export class FlareNodeStack extends cdk.Stack {
       // aws ec2 describe-images --region us-east-1 --image-ids ami-022d4249382309a48
       deviceName: '/dev/sda1',
       // Override the default volume size of 8GB and GP2 type.
-      volume: ec2.BlockDeviceVolume.ebs(2000, {
+      volume: ec2.BlockDeviceVolume.ebs(1200, {
         volumeType: ec2.EbsDeviceVolumeType.GP3,
         iops: 10000
       })
